@@ -1,0 +1,27 @@
+moveit_setup_assistant_config:
+  urdf:
+    package: scara_description
+    relative_path: urdf/scara_description.urdf
+  srdf:
+    relative_path: config/scara_description.srdf
+  package_settings:
+    author_name: xinchen
+    author_email: yao29@illinois.edu
+    generated_timestamp: 1708667799
+  control_xacro:
+    command:
+      - position
+      - velocity
+    state:
+      - position
+      - velocity
+  modified_urdf:
+    xacros:
+      - control_xacro
+  control_xacro:
+    command:
+      - position
+      - velocity
+    state:
+      - position
+      - velocity
