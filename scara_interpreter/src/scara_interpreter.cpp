@@ -6,14 +6,14 @@
 
 using sensor_msgs::msg::JointState;
 
-class MoveitInterpreter : public rclcpp::Node
+class ScaraInterpreter : public rclcpp::Node
 {
 public:
-    MoveitInterpreter() : Node("moveit_interpreter")
+    ScaraInterpreter() : Node("moveit_interpreter")
     {
         joint_state_sub_ = this->create_subscription<JointState>(
             "joint_states", 10,
-            std::bind(&MoveitInterpreter::joint_state_callback, this, std::placeholders::_1));
+            std::bind(&ScaraInterpreter::joint_state_callback, this, std::placeholders::_1));
     }
 
 private:
