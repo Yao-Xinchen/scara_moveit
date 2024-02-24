@@ -22,6 +22,8 @@ find_package(tf2_geometry_msgs REQUIRED)
 find_package(Eigen3 REQUIRED)
 find_package(Boost REQUIRED)
 
+find_package(arm_interface REQUIRED)
+
 set(THIS_PACKAGE_INCLUDE_DEPENDS
   ament_cmake
   rclcpp
@@ -41,6 +43,7 @@ add_executable(scara_servo
   src/scara_servo.cpp)
 ament_target_dependencies(scara_servo
   ${THIS_PACKAGE_INCLUDE_DEPENDS}
+  arm_interface
 )
 
 install(TARGETS scara_servo
