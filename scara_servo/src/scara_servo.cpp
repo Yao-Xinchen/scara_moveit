@@ -55,16 +55,9 @@ private:
         }
         else RCLCPP_ERROR(this->get_logger(), "Planning scene not configured");
 
-#if ROS_DISTRO == humble
         auto servo_parameters = moveit_servo::ServoParameters::makeServoParameters(
-            this->shared_from_this()
+            this->shared_from_this()/*, this->get_logger()*/
         );
-#elif ROS_DISTRO == foxy
-        auto servo_parameters = moveit_servo::ServoParameters::makeServoParameters(
-            this->shared_from_this(),
-            this->get_logger(),
-        );
-#endif // ROS_DISTRO
         if (!servo_parameters) RCLCPP_FATAL(this->get_logger(), "Failed to load the servo parameters");
 
         auto _servo_ = std::make_shared<moveit_servo::Servo>(this->shared_from_this(), servo_parameters, planning_scene_monitor_);
