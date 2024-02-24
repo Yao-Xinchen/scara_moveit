@@ -12,11 +12,18 @@ find_package(ament_cmake REQUIRED)
 # find_package(<dependency> REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
+find_package(sensor_msgs REQUIRED)
+find_package(motor_interface REQUIRED)
 
 include_directories(include)
 
-add_executable(scara_motor src/scara_motor.cpp)
-ament_target_dependencies(scara_motor rclcpp std_msgs)
+add_executable(scara_motor
+  src/scara_motor.cpp)
+ament_target_dependencies(scara_motor
+  rclcpp
+  std_msgs
+  sensor_msgs
+  motor_interface)
 
 install(TARGETS
   scara_motor

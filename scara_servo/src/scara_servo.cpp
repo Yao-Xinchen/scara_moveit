@@ -1,7 +1,4 @@
 #include "rclcpp/rclcpp.hpp"
-#include <arm_interface/msg/detail/end_vel__struct.hpp>
-#include <control_msgs/msg/detail/joint_jog__struct.hpp>
-#include <geometry_msgs/msg/detail/twist_stamped__struct.hpp>
 #include <memory>
 
 #include <moveit_servo/servo_parameters.h>
