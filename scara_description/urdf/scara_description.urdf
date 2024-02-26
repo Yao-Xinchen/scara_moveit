@@ -6,18 +6,38 @@
   name="scara_description">
   <link
     name="base_link">
+    <inertial>
+      <origin
+        xyz="0.0057621332343482 0.00285775270200555 0.193189380051916"
+        rpy="0 0 0" />
+      <mass
+        value="0.57217968365953" />
+      <inertia
+        ixx="0.0124278422911613"
+        ixy="4.96126683289887E-05"
+        ixz="-0.000724082970449908"
+        iyy="0.0130268328944623"
+        iyz="0.000255561135289622"
+        izz="0.000728269847627912" />
+    </inertial>
     <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
       <geometry>
         <mesh
           filename="package://scara_description/meshes/base_link.STL" />
       </geometry>
       <material
-        name="mat">
+        name="">
         <color
-          rgba="0.79216 0.81961 0.93333 1" />
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
       </material>
     </visual>
     <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
       <geometry>
         <mesh
           filename="package://scara_description/meshes/base_link.STL" />
@@ -28,36 +48,36 @@
     name="link1">
     <inertial>
       <origin
-        xyz="0.013832 0.069555 0.12417"
-        rpy="0.0 0.0 0.0" />
+        xyz="0.0138321265029742 0.0695548003003947 0.124171706108288"
+        rpy="0 0 0" />
       <mass
-        value="0.27253" />
+        value="0.27252514896887" />
       <inertia
-        ixx="0.00057162"
-        ixy="1.0817E-06"
-        ixz="-1.4268E-06"
-        iyy="0.00039856"
-        iyz="-0.0001182"
-        izz="0.00066763" />
+        ixx="0.000571622269742261"
+        ixy="1.08172931699114E-06"
+        ixz="-1.42679992540951E-06"
+        iyy="0.000398558077561348"
+        iyz="-0.000118201456526435"
+        izz="0.000667634937011231" />
     </inertial>
     <visual>
       <origin
-        xyz="0.0 0.0 0.0"
-        rpy="0.0 0.0 0.0" />
+        xyz="0 0 0"
+        rpy="0 0 0" />
       <geometry>
         <mesh
           filename="package://scara_description/meshes/link1.STL" />
       </geometry>
       <material
-        name="mat">
+        name="">
         <color
-          rgba="0.79216 0.81961 0.93333 1" />
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
       </material>
     </visual>
     <collision>
       <origin
-        xyz="0.0 0.0 0.0"
-        rpy="0.0 0.0 0.0" />
+        xyz="0 0 0"
+        rpy="0 0 0" />
       <geometry>
         <mesh
           filename="package://scara_description/meshes/link1.STL" />
@@ -68,14 +88,14 @@
     name="joint1"
     type="prismatic">
     <origin
-      xyz="0.0 0.0 0.0"
-      rpy="0.0 0.0 0.0" />
+      xyz="0 0 0"
+      rpy="0 0 0" />
     <parent
       link="base_link" />
     <child
       link="link1" />
     <axis
-      xyz="0.0 0.0 -1" />
+      xyz="0 0 -1" />
     <limit
       lower="-0.25245"
       upper="0"
@@ -86,36 +106,36 @@
     name="link2">
     <inertial>
       <origin
-        xyz="0.15122 4.1633E-17 0.033583"
-        rpy="0.0 0.0 0.0" />
+        xyz="0.151219366961841 2.77555756156289E-17 0.0335829435916624"
+        rpy="0 0 0" />
       <mass
-        value="0.58092" />
+        value="0.580917463575827" />
       <inertia
-        ixx="0.00032773"
-        ixy="-1.638E-19"
-        ixz="0.00014693"
-        iyy="0.0043698"
-        iyz="2.5356E-19"
-        izz="0.0045086" />
+        ixx="0.000327730819903859"
+        ixy="-9.67593407106374E-20"
+        ixz="0.000146927246084188"
+        iyy="0.00436977800756494"
+        iyz="2.49232979655035E-19"
+        izz="0.00450856517326053" />
     </inertial>
     <visual>
       <origin
-        xyz="0.0 0.0 0.0"
-        rpy="0.0 0.0 0.0" />
+        xyz="0 0 0"
+        rpy="0 0 0" />
       <geometry>
         <mesh
           filename="package://scara_description/meshes/link2.STL" />
       </geometry>
       <material
-        name="mat">
+        name="">
         <color
-          rgba="0.79216 0.81961 0.93333 1" />
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
       </material>
     </visual>
     <collision>
       <origin
-        xyz="0.0 0.0 0.0"
-        rpy="0.0 0.0 0.0" />
+        xyz="0 0 0"
+        rpy="0 0 0" />
       <geometry>
         <mesh
           filename="package://scara_description/meshes/link2.STL" />
@@ -127,13 +147,13 @@
     type="revolute">
     <origin
       xyz="0.014 0.0935 0.1372"
-      rpy="0.0 0.0 0.0" />
+      rpy="0 0 0" />
     <parent
       link="link1" />
     <child
       link="link2" />
     <axis
-      xyz="0.0 0.0 1.0" />
+      xyz="0 0 1" />
     <limit
       lower="-0.7854"
       upper="1.7977"
@@ -144,36 +164,36 @@
     name="link3">
     <inertial>
       <origin
-        xyz="-1.3878E-17 0.12057 0.041448"
-        rpy="0.0 0.0 0.0" />
+        xyz="-1.38777878078145E-17 0.120570098997035 0.0414479064127798"
+        rpy="0 0 0" />
       <mass
-        value="0.30095" />
+        value="0.300947531370299" />
       <inertia
-        ixx="0.0030927"
-        ixy="-1.1397E-19"
-        ixz="-2.8553E-20"
-        iyy="0.00016611"
-        iyz="-0.00017474"
-        izz="0.0030234" />
+        ixx="0.00309266769969678"
+        ixy="-1.12554934406237E-19"
+        ixz="-1.51741714335356E-20"
+        iyy="0.00016611302475049"
+        iyz="-0.000174741077577407"
+        izz="0.00302343360822394" />
     </inertial>
     <visual>
       <origin
-        xyz="0.0 0.0 0.0"
-        rpy="0.0 0.0 0.0" />
+        xyz="0 0 0"
+        rpy="0 0 0" />
       <geometry>
         <mesh
           filename="package://scara_description/meshes/link3.STL" />
       </geometry>
       <material
-        name="mat">
+        name="">
         <color
-          rgba="0.79216 0.81961 0.93333 1" />
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
       </material>
     </visual>
     <collision>
       <origin
-        xyz="0.0 0.0 0.0"
-        rpy="0.0 0.0 0.0" />
+        xyz="0 0 0"
+        rpy="0 0 0" />
       <geometry>
         <mesh
           filename="package://scara_description/meshes/link3.STL" />
@@ -184,14 +204,14 @@
     name="joint3"
     type="revolute">
     <origin
-      xyz="0.215 0 0.0454"
-      rpy="0.0 0.0 -1.5708" />
+      xyz="0.215 0 0.0453999999999997"
+      rpy="0 0 -1.5707963267949" />
     <parent
       link="link2" />
     <child
       link="link3" />
     <axis
-      xyz="0.0 0.0 1.0" />
+      xyz="0 0 1" />
     <limit
       lower="-1.3439"
       upper="4.0143"
@@ -202,36 +222,36 @@
     name="link4">
     <inertial>
       <origin
-        xyz="0.00091191 -0.067419 0.069367"
-        rpy="0.0 0.0 0.0" />
+        xyz="0.000911907177548854 -0.0674185686260867 0.0693671054879262"
+        rpy="0 0 0" />
       <mass
-        value="0.16132" />
+        value="0.161315962203164" />
       <inertia
-        ixx="0.00040057"
-        ixy="-4.1022E-06"
-        ixz="4.7582E-06"
-        iyy="0.00025268"
-        iyz="0.00014299"
-        izz="0.00019938" />
+        ixx="0.00040056998946175"
+        ixy="-4.10216369660939E-06"
+        ixz="4.75822222243618E-06"
+        iyy="0.000252675454451169"
+        iyz="0.000142989851619656"
+        izz="0.000199381329691318" />
     </inertial>
     <visual>
       <origin
-        xyz="0.0 0.0 0.0"
-        rpy="0.0 0.0 0.0" />
+        xyz="0 0 0"
+        rpy="0 0 0" />
       <geometry>
         <mesh
           filename="package://scara_description/meshes/link4.STL" />
       </geometry>
       <material
-        name="mat">
+        name="">
         <color
-          rgba="0.79216 0.81961 0.93333 1" />
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
       </material>
     </visual>
     <collision>
       <origin
-        xyz="0.0 0.0 0.0"
-        rpy="0.0 0.0 0.0" />
+        xyz="0 0 0"
+        rpy="0 0 0" />
       <geometry>
         <mesh
           filename="package://scara_description/meshes/link4.STL" />
@@ -243,13 +263,13 @@
     type="revolute">
     <origin
       xyz="0 0.285 0.0416"
-      rpy="0.0 0.0 -1.5708" />
+      rpy="0 0 -1.5707963267949" />
     <parent
       link="link3" />
     <child
       link="link4" />
     <axis
-      xyz="0.0 0.0 1.0" />
+      xyz="0 0 1" />
     <limit
       lower="-2.6698"
       upper="3.0025"
@@ -260,36 +280,36 @@
     name="link5">
     <inertial>
       <origin
-        xyz="0.0060554 -0.0012752 0.039479"
-        rpy="0.0 0.0 0.0" />
+        xyz="0.00605536000839357 -0.00127524114842326 0.0394789472938122"
+        rpy="0 0 0" />
       <mass
-        value="0.15899" />
+        value="0.158985625581691" />
       <inertia
-        ixx="9.2458E-05"
-        ixy="-1.5446E-06"
-        ixz="-7.9696E-07"
-        iyy="0.00013471"
-        iyz="3.8986E-06"
-        izz="0.00011974" />
+        ixx="9.24577513113223E-05"
+        ixy="-1.5445864125732E-06"
+        ixz="-7.96961415230022E-07"
+        iyy="0.000134712959630509"
+        iyz="3.89855502623123E-06"
+        izz="0.000119738799533511" />
     </inertial>
     <visual>
       <origin
-        xyz="0.0 0.0 0.0"
-        rpy="0.0 0.0 0.0" />
+        xyz="0 0 0"
+        rpy="0 0 0" />
       <geometry>
         <mesh
           filename="package://scara_description/meshes/link5.STL" />
       </geometry>
       <material
-        name="mat">
+        name="">
         <color
-          rgba="0.79216 0.81961 0.93333 1" />
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
       </material>
     </visual>
     <collision>
       <origin
-        xyz="0.0 0.0 0.0"
-        rpy="0.0 0.0 0.0" />
+        xyz="0 0 0"
+        rpy="0 0 0" />
       <geometry>
         <mesh
           filename="package://scara_description/meshes/link5.STL" />
@@ -301,13 +321,13 @@
     type="revolute">
     <origin
       xyz="0 -0.047 0.092"
-      rpy="-1.5708 0 0" />
+      rpy="-1.5707963267949 0 0" />
     <parent
       link="link4" />
     <child
       link="link5" />
     <axis
-      xyz="0.0 0.0 -1" />
+      xyz="0 0 -1" />
     <limit
       lower="-0.69813"
       upper="0"
@@ -318,36 +338,36 @@
     name="link6">
     <inertial>
       <origin
-        xyz="-0.003554 -0.0025118 -0.05101"
-        rpy="0.0 0.0 0.0" />
+        xyz="-0.00355403590625505 -0.00251181168132289 -0.0510095609592032"
+        rpy="0 0 0" />
       <mass
-        value="0.071797" />
+        value="0.0717968221721647" />
       <inertia
-        ixx="5.5607E-05"
-        ixy="7.7263E-07"
-        ixz="-4.6345E-06"
-        iyy="4.7936E-05"
-        iyz="2.1998E-07"
-        izz="3.3372E-05" />
+        ixx="5.56065583559543E-05"
+        ixy="7.72628005861415E-07"
+        ixz="-4.6344552032925E-06"
+        iyy="4.79357175536453E-05"
+        iyz="2.19980245329151E-07"
+        izz="3.33722393714322E-05" />
     </inertial>
     <visual>
       <origin
-        xyz="0.0 0.0 0.0"
-        rpy="0.0 0.0 0.0" />
+        xyz="0 0 0"
+        rpy="0 0 0" />
       <geometry>
         <mesh
           filename="package://scara_description/meshes/link6.STL" />
       </geometry>
       <material
-        name="mat">
+        name="">
         <color
-          rgba="0.79216 0.81961 0.93333 1" />
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
       </material>
     </visual>
     <collision>
       <origin
-        xyz="0.0 0.0 0.0"
-        rpy="0.0 0.0 0.0" />
+        xyz="0 0 0"
+        rpy="0 0 0" />
       <geometry>
         <mesh
           filename="package://scara_description/meshes/link6.STL" />
@@ -358,14 +378,14 @@
     name="joint6"
     type="revolute">
     <origin
-      xyz="-0.01785 0 0.048"
-      rpy="1.5708 0 1.5708" />
+      xyz="-0.0178499999999999 0 0.048"
+      rpy="1.5707963267949 0 1.5707963267949" />
     <parent
       link="link5" />
     <child
       link="link6" />
     <axis
-      xyz="0.0 0.0 1.0" />
+      xyz="0 0 1" />
     <limit
       lower="-3.1416"
       upper="0"
@@ -376,36 +396,36 @@
     name="link7">
     <inertial>
       <origin
-        xyz="-0.011222 2.7756E-17 0"
-        rpy="0.0 0.0 0.0" />
+        xyz="-0.0112224969341433 2.77555756156289E-17 -1.38777878078145E-17"
+        rpy="0 0 0" />
       <mass
-        value="0.02813" />
+        value="0.0281299504553923" />
       <inertia
-        ixx="4.3683E-06"
-        ixy="5.1544E-21"
-        ixz="-1.9375E-23"
-        iyy="6.5087E-06"
-        iyz="1.1221E-20"
-        izz="4.8166E-06" />
+        ixx="4.36826634068471E-06"
+        ixy="5.20286234456131E-21"
+        ixz="1.71012922866411E-22"
+        iyy="6.50865119427316E-06"
+        iyz="1.1254987768263E-20"
+        izz="4.81664015522416E-06" />
     </inertial>
     <visual>
       <origin
-        xyz="0.0 0.0 0.0"
-        rpy="0.0 0.0 0.0" />
+        xyz="0 0 0"
+        rpy="0 0 0" />
       <geometry>
         <mesh
           filename="package://scara_description/meshes/link7.STL" />
       </geometry>
       <material
-        name="mat">
+        name="">
         <color
-          rgba="0.79216 0.81961 0.93333 1" />
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
       </material>
     </visual>
     <collision>
       <origin
-        xyz="0.0 0.0 0.0"
-        rpy="0.0 0.0 0.0" />
+        xyz="0 0 0"
+        rpy="0 0 0" />
       <geometry>
         <mesh
           filename="package://scara_description/meshes/link7.STL" />
@@ -416,17 +436,17 @@
     name="joint7"
     type="revolute">
     <origin
-      xyz="0.0 0.0 -0.078405"
+      xyz="0 0 -0.078405"
       rpy="1.5708 -1.5708 0" />
     <parent
       link="link6" />
     <child
       link="link7" />
     <axis
-      xyz="0.0 0.0 1.0" />
+      xyz="0 0 1" />
     <limit
-      lower="-1.5708"
-      upper="0.17453"
+      lower="-0.17453"
+      upper="1.5708"
       effort="200"
       velocity="3" />
   </joint>
@@ -434,36 +454,36 @@
     name="link8">
     <inertial>
       <origin
-        xyz="-0.035573 2.7756E-17 8.3267E-17"
-        rpy="0.0 0.0 0.0" />
+        xyz="-0.0355732119020791 2.77555756156289E-17 9.71445146547012E-17"
+        rpy="0 0 0" />
       <mass
-        value="0.037459" />
+        value="0.0374587379875856" />
       <inertia
-        ixx="1.9178E-05"
-        ixy="-2.0171E-20"
-        ixz="-1.017E-20"
-        iyy="1.0134E-05"
-        iyz="-1.5485E-21"
-        izz="1.0134E-05" />
+        ixx="1.91779993839597E-05"
+        ixy="-2.01711871875207E-20"
+        ixz="-9.55306611337375E-21"
+        iyy="1.01343765382842E-05"
+        iyz="-9.83806034622694E-22"
+        izz="1.01343765382842E-05" />
     </inertial>
     <visual>
       <origin
-        xyz="0.0 0.0 0.0"
-        rpy="0.0 0.0 0.0" />
+        xyz="0 0 0"
+        rpy="0 0 0" />
       <geometry>
         <mesh
           filename="package://scara_description/meshes/link8.STL" />
       </geometry>
       <material
-        name="mat">
+        name="">
         <color
-          rgba="0.79216 0.81961 0.93333 1" />
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
       </material>
     </visual>
     <collision>
       <origin
-        xyz="0.0 0.0 0.0"
-        rpy="0.0 0.0 0.0" />
+        xyz="0 0 0"
+        rpy="0 0 0" />
       <geometry>
         <mesh
           filename="package://scara_description/meshes/link8.STL" />
@@ -474,13 +494,13 @@
     name="joint8"
     type="fixed">
     <origin
-      xyz="0.0 0.0 0.0"
-      rpy="0.0 0.0 0.0" />
+      xyz="0 0 0"
+      rpy="0 0 0" />
     <parent
       link="link7" />
     <child
       link="link8" />
     <axis
-      xyz="0.0 0.0 0.0" />
+      xyz="0 0 0" />
   </joint>
 </robot>
