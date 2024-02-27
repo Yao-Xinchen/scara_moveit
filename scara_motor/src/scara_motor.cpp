@@ -21,13 +21,23 @@ unordered_map<string, string> joint2motor = {
 };
 
 unordered_map<string, float> motor_offset = {
-    {"J1", -1.22},
-    {"J2", -0.69},
-    {"J3", 0.0},
+    {"J1", 0.0},
+    {"J2", -1.22},
+    {"J3", 0.28},
     {"J4", 0.0},
     {"J5", 0.0},
     {"J6", 0.0},
     {"J7", 0.0},
+};
+
+unordered_map<string, float> motor_ratio = {
+    {"J1", 10.0},
+    {"J2", 1.0},
+    {"J3", 1.0},
+    {"J4", 10.0},
+    {"J5", 10.0},
+    {"J6", 10.0},
+    {"J7", 10.0},
 };
 
 class ScaraMotor : public rclcpp::Node
@@ -58,9 +68,10 @@ private:
             auto position = state_msg_->position[i];
             auto motor_rid = joint2motor[joint];
             auto offset = motor_offset[motor_rid];
+            auto ratio = motor_ratio[motor_rid];
 
             motor_goal_msg.motor_id.push_back(motor_rid);
-            motor_goal_msg.goal_pos.push_back(position + offset);
+            motor_goal_msg.goal_pos.push_back((position + offset) * ratio);
             motor_goal_msg.goal_vel.push_back(0.0);
         }
         motor_goal_pub_->publish(motor_goal_msg);
