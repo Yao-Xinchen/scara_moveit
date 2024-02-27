@@ -7,6 +7,8 @@
 #include "sensor_msgs/msg/joint_state.hpp" // produced by moveit
 #include "motor_interface/msg/motor_goal.hpp"
 
+#define R2D 57.2957795f // 180/pi, rad to degree
+
 using std::unordered_map, std::string;
 using motor_interface::msg::MotorGoal, sensor_msgs::msg::JointState;
 
@@ -31,14 +33,15 @@ unordered_map<string, float> motor_offset = {
 };
 
 unordered_map<string, float> motor_ratio = {
-    {"J1", 10.0},
+    {"J1", 973.4 * R2D}, // 5cm -> 15.5rounds, 1m -> 310rounds -> 973.4 rad
     {"J2", 1.0},
     {"J3", 1.0},
-    {"J4", 10.0},
-    {"J5", 10.0},
-    {"J6", 10.0},
-    {"J7", 10.0},
+    {"J4", 20.0 * R2D}, // 20rounds -> 360degree
+    {"J5", 20.0 * R2D},
+    {"J6", 20.0 * R2D},
+    {"J7", 108.0 * R2D}, // 0.25round -> 27rounds
 };
+// dji motors accept position in degree
 
 class ScaraMotor : public rclcpp::Node
 {
