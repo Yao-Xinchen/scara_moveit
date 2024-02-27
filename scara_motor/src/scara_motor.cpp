@@ -21,8 +21,8 @@ unordered_map<string, string> joint2motor = {
 };
 
 unordered_map<string, float> motor_offset = {
-    {"J1", 0.0},
-    {"J2", 0.0},
+    {"J1", -1.22},
+    {"J2", -0.69},
     {"J3", 0.0},
     {"J4", 0.0},
     {"J5", 0.0},
