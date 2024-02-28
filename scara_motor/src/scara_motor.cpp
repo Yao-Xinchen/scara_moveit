@@ -22,16 +22,6 @@ unordered_map<string, string> joint2motor = {
     {"joint7", "J7"},
 };
 
-unordered_map<string, float> motor_offset = {
-    {"J1", 0.0},
-    {"J2", -1.22},
-    {"J3", 0.28},
-    {"J4", 0.0},
-    {"J5", 0.0},
-    {"J6", 0.0},
-    {"J7", 0.0},
-};
-
 unordered_map<string, float> motor_ratio = {
     {"J1", 973.4 * R2D}, // 5cm -> 15.5rounds, 1m -> 310rounds -> 973.4 rad
     {"J2", 1.0},
@@ -52,11 +42,17 @@ public:
             joint_state_callback(msg);
         });
         motor_goal_pub_ = this->create_publisher<MotorGoal>("motor_goal", 10);
+
+        get_offsets();
+
+        RCLCPP_INFO(this->get_logger(), "ScaraMotor initialized.");
     }
 
 private:
     rclcpp::Subscription<JointState>::SharedPtr joint_state_sub_;
     rclcpp::Publisher<MotorGoal>::SharedPtr motor_goal_pub_;
+
+    unordered_map<string, float> motor_offset;
 
     void joint_state_callback(JointState::SharedPtr state_msg_)
     {
@@ -78,6 +74,18 @@ private:
             motor_goal_msg.goal_vel.push_back(0.0);
         }
         motor_goal_pub_->publish(motor_goal_msg);
+    }
+
+    void get_offsets()
+    {
+        for (const auto &pair : joint2motor)
+        {
+            auto joint = pair.first;
+            auto motor = pair.second;
+            auto param_name = "offsets." + joint;
+            this->motor_offset[motor] = this->declare_parameter(param_name, 0.0);
+            // RCLCPP_INFO(this->get_logger(), "offsets[%s] = %f", motor.c_str(), this->motor_offset[motor]);
+        }
     }
 };
 
