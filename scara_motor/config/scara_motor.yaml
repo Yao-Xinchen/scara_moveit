@@ -1,6 +1,7 @@
 /scara_motor:
   ros__parameters:
-    offsets:
+    
+    offset:
       joint1: 0.0
       joint2: -1.22
       joint3: 0.28
@@ -8,3 +9,12 @@
       joint5: 0.0
       joint6: 0.0
       joint7: 0.0
+
+    ratio:
+      joint1: 973.4
+      joint2: 1.0
+      joint3: 1.0
+      joint4: 20.0
+      joint5: 20.0
+      joint6: 20.0
+      joint7: 108.0

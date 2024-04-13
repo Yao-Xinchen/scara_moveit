@@ -18,7 +18,8 @@ find_package(motor_interface REQUIRED)
 include_directories(include)
 
 add_executable(scara_motor
-  src/scara_motor.cpp)
+  src/scara_motor.cpp
+  src/motor.cpp)
 ament_target_dependencies(scara_motor
   rclcpp
   std_msgs
