@@ -10,7 +10,7 @@ public:
 
     Motor(std::string rid, double offset, double ratio);
 
-    [[nodiscard]] double calc_pos(double pos) const;
+    [[nodiscard]] double calc_pos(double joint_pos) const;
 
     std::string rid;
     double offset;

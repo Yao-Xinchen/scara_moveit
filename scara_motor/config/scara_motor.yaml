@@ -3,12 +3,12 @@
     
     offset:
       joint1: 0.0
-      joint2: -1.22
-      joint3: 0.28
-      joint4: 0.0
+      joint2: -1.28
+      joint3: -2.71
+      joint4: 1.571
       joint5: 0.0
       joint6: 0.0
-      joint7: 0.0
+      joint7: -1.571
 
     ratio:
       joint1: 973.4

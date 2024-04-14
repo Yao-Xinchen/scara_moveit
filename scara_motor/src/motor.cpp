@@ -7,7 +7,7 @@ Motor::Motor(std::string rid, double offset, double ratio)
     this->ratio = ratio;
 }
 
-double Motor::calc_pos(double pos) const
+double Motor::calc_pos(double joint_pos) const
 {
-    return (pos + offset) * ratio;
+    return (joint_pos + offset) * ratio;
 }
