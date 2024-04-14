@@ -20,7 +20,7 @@
   <depend>tf2_geometry_msgs</depend>
   <depend>tf2_ros</depend>
 
-  <depend>arm_interface</depend>
+  <depend>behavior_interface</depend>
 
   <build_depend>eigen</build_depend>
   <build_depend>moveit_ros_planning</build_depend>

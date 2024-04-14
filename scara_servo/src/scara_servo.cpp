@@ -6,11 +6,11 @@
 #include <moveit/planning_scene_monitor/planning_scene_monitor.h>
 #include <rclcpp/subscription.hpp>
 
-#include "arm_interface/msg/end_vel.hpp"
+#include "behavior_interface/msg/end_vel.hpp"
 
 using control_msgs::msg::JointJog;
 using geometry_msgs::msg::TwistStamped;
-using arm_interface::msg::EndVel;
+using behavior_interface::msg::EndVel;
 
 #define EEF_FRAME_ID "link8" // end effector frame
 #define BASE_FRAME_ID "base_link"
