@@ -26,9 +26,12 @@ public:
         // joint_pub_ = this->create_publisher<JointJog>("joint_jog", 10);
         twist_pub_ = this->create_publisher<TwistStamped>("cartesian_velocity", 10);
 
-        end_vel_sub_ = this->create_subscription<EndVel>("end_vel", 10, [this](EndVel::SharedPtr msg) {
-            end_vel_callback(msg);
+        end_vel_sub_ = this->create_subscription<EndVel>("end_vel", 10,
+            [this](EndVel::SharedPtr msg) {
+                end_vel_callback(msg);
         });
+
+        RCLCPP_INFO(this->get_logger(), "ScaraServo initialized.");
     }
 
 private:
@@ -37,7 +40,6 @@ private:
     std::shared_ptr<moveit_servo::Servo> servo_;
     
     rclcpp::Subscription<EndVel>::SharedPtr end_vel_sub_;
-    EndVel::UniquePtr end_vel_msg_;
 
     std::shared_ptr<moveit_servo::Servo> init_servo()
     {
@@ -85,7 +87,8 @@ int main(int argc, char *argv[])
 {
     rclcpp::init(argc, argv);
     rclcpp::sleep_for(std::chrono::seconds(2)); // wait for rviz to start
-    rclcpp::spin(std::make_shared<ScaraServo>());
+    auto node_ = std::make_shared<ScaraServo>();
+    rclcpp::spin(node_);
     rclcpp::shutdown();
     return 0;
 }
