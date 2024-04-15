@@ -1,0 +1,11 @@
+bool w
+bool a
+bool s
+bool d
+bool q
+bool e
+bool i
+bool j
+bool o
+bool p
+bool space
