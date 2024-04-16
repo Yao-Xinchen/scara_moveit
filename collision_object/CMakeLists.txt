@@ -23,6 +23,9 @@ ament_target_dependencies(collision_object
   moveit_ros_planning_interface
 )
 
+install(TARGETS collision_object
+  DESTINATION lib/${PROJECT_NAME})
+
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
   set(ament_cmake_copyright_FOUND TRUE)
