@@ -7,9 +7,25 @@ endif()
 
 # find dependencies
 find_package(ament_cmake REQUIRED)
-# uncomment the following section in order to fill in
-# further dependencies manually.
-# find_package(<dependency> REQUIRED)
+find_package(moveit_core REQUIRED)
+find_package(moveit_visual_tools REQUIRED)
+find_package(rclcpp REQUIRED)
+find_package(moveit_ros_move_group REQUIRED)
+find_package(moveit_ros_planning_interface REQUIRED)
+
+add_executable(target_pose
+  src/target_pose.cpp)
+ament_target_dependencies(target_pose
+  moveit_core
+  moveit_visual_tools
+  rclcpp
+  moveit_ros_move_group
+  moveit_ros_planning_interface
+)
+
+install(TARGETS target_pose
+  DESTINATION lib/${PROJECT_NAME}
+)
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
