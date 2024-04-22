@@ -1,0 +1,7 @@
+<library path="scara_motor_driver">
+    <class
+        name="Scara/MotorDriver"
+        type="Scara::MotorDriver"
+        base_class_type="hardware_interface::SystemInterface">
+    </class>
+</library>
