@@ -1,4 +1,4 @@
-/scara_motor_driver:
+/scara_motor_driver_node:
   ros__parameters:
 
     joint_count: 7

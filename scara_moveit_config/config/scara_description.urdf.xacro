@@ -9,6 +9,7 @@
     <xacro:include filename="scara_description.ros2_control.xacro" />
 
 
-    <xacro:scara_description_ros2_control name="FakeSystem" initial_positions_file="$(arg initial_positions_file)"/>
+    <!-- <xacro:scara_description_ros2_control name="FakeSystem" initial_positions_file="$(arg initial_positions_file)"/> -->
+    <xacro:scara_description_ros2_control name="RealScara" initial_positions_file="$(arg initial_positions_file)"/>
 
 </robot>

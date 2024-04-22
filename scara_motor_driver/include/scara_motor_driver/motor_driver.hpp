@@ -23,7 +23,7 @@ using hardware_interface::return_type;
 
 using namespace std;
 
-namespace Scara
+namespace scara
 {
 
 using CallbackReturn = rclcpp_lifecycle::node_interfaces::LifecycleNodeInterface::CallbackReturn;
@@ -37,7 +37,7 @@ public:
 
     std::vector<hardware_interface::CommandInterface> export_command_interfaces() override;
 
-    return_type read(const rclcpp::Time & time, const rclcpp::Duration & period) override;
+    return_type read(const rclcpp::Time & /*time*/, const rclcpp::Duration & /*period*/) override;
 
     return_type write(const rclcpp::Time & /*time*/, const rclcpp::Duration & /*period*/) override;
 

@@ -59,18 +59,20 @@ ament_target_dependencies(
   motor_interface
 )
 
+target_compile_definitions(scara_motor_driver PRIVATE "SCARA_MOTOR_DRIVER_BUILDING_DLL")
+
 # Export hardware plugins
 pluginlib_export_plugin_description_file(hardware_interface scara_motor_driver.xml)
 
 # INSTALL
 install(
   DIRECTORY include/
-  DESTINATION include
+  DESTINATION include/scara_motor_driver
 )
 
 install(
   TARGETS scara_motor_driver
-  EXPORT scara_motor_driver
+  EXPORT export_scara_motor_driver
   ARCHIVE DESTINATION lib
   LIBRARY DESTINATION lib
   RUNTIME DESTINATION bin
@@ -89,7 +91,7 @@ if(BUILD_TESTING)
 endif()
 
 # Export
-ament_export_targets(scara_motor_driver HAS_LIBRARY_TARGET)
+ament_export_targets(export_scara_motor_driver HAS_LIBRARY_TARGET)
 ament_export_dependencies(${HW_IF_INCLUDE_DEPENDS} ${REF_GEN_INCLUDE_DEPENDS} ${CONTROLLER_INCLUDE_DEPENDS})
 
 ament_package()
