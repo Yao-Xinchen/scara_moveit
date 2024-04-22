@@ -5,7 +5,16 @@ namespace Scara
 
 CallbackReturn MotorDriver::on_init(const hardware_interface::HardwareInfo & info)
 {
-    return CallbackReturn::SUCCESS;
+    // Call the base class implementation
+    if (hardware_interface::SystemInterface::on_init(info) != CallbackReturn::SUCCESS)
+    {
+        return CallbackReturn::ERROR;
+    }
+
+    node_ = rclcpp::Node::make_shared("scara_motor_driver_node");
+
+    // Get the joint names
+    
 }
 
 std::vector<hardware_interface::StateInterface> MotorDriver::export_state_interfaces()
@@ -31,3 +40,7 @@ return_type MotorDriver::write(const rclcpp::Time & /*time*/, const rclcpp::Dura
 }
 
 }
+
+#include "pluginlib/class_list_macros.hpp"
+
+PLUGINLIB_EXPORT_CLASS(Scara::MotorDriver, hardware_interface::SystemInterface)

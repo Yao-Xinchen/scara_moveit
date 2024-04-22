@@ -41,6 +41,8 @@ add_library(
   scara_motor_driver
   SHARED
   src/motor_driver.cpp
+  src/motor_joint.cpp
+  src/mj_map.cpp
 )
 
 target_compile_features(scara_motor_driver PUBLIC cxx_std_20)
