@@ -23,13 +23,17 @@ public:
 
     void add_joint(string motor, string joint, double offset, double ratio);
 
-    double j2m_pos(string joint, double joint_pos) const;
+    [[nodiscard]] string j2m_name(string joint) const;
 
-    double m2j_pos(string motor, double motor_pos) const;
+    [[nodiscard]] string m2j_name(string motor) const;
 
-    double j2m_vel(string joint, double joint_vel) const;
+    [[nodiscard]] double j2m_pos(string joint, double joint_pos) const;
 
-    double m2j_vel(string motor, double motor_vel) const;
+    [[nodiscard]] double m2j_pos(string motor, double motor_pos) const;
+
+    [[nodiscard]] double j2m_vel(string joint, double joint_vel) const;
+
+    [[nodiscard]] double m2j_vel(string motor, double motor_vel) const;
 
     [[nodiscard]] std::set<string> get_joint_names() const;
 };

@@ -7,6 +7,16 @@ void MJMap::add_joint(string motor, string joint, double offset, double ratio)
     motor_map[motor] = mj;
 }
 
+string MJMap::j2m_name(string joint) const
+{
+    return joint_map.at(joint)->motor_name;
+}
+
+string MJMap::m2j_name(string motor) const
+{
+    return motor_map.at(motor)->joint_name;
+}
+
 double MJMap::j2m_pos(string joint, double joint_pos) const
 {
     return joint_map.at(joint)->j2m_pos(joint_pos);

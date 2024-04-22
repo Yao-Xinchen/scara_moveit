@@ -36,6 +36,8 @@ foreach(Dependency IN ITEMS ${CONTROLLER_INCLUDE_DEPENDS})
   find_package(${Dependency} REQUIRED)
 endforeach()
 
+find_package(motor_interface REQUIRED)
+
 # COMPILE
 add_library(
   scara_motor_driver
@@ -54,6 +56,7 @@ ament_target_dependencies(
   scara_motor_driver PUBLIC
   ${HW_IF_INCLUDE_DEPENDS}
   ${CONTROLLER_INCLUDE_DEPENDS}
+  motor_interface
 )
 
 # Export hardware plugins

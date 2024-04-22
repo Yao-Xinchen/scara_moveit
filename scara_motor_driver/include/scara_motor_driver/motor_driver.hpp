@@ -1,9 +1,13 @@
 #ifndef SCARA_MOTOR_DRIVER__MOTOR_DRIVER_HPP_
 #define SCARA_MOTOR_DRIVER__MOTOR_DRIVER_HPP_
 
+#include "scara_motor_driver/mj_map.hpp"
 #include "string"
 #include "unordered_map"
 #include "vector"
+#include <string>
+#include <unordered_map>
+#include <utility>
 
 #include "hardware_interface/handle.hpp"
 #include "hardware_interface/hardware_info.hpp"
@@ -12,8 +16,12 @@
 #include "hardware_interface/types/hardware_interface_type_values.hpp"
 
 #include "rclcpp/rclcpp.hpp"
+#include "motor_interface/msg/motor_goal.hpp"
+#include "motor_interface/msg/motor_state.hpp"
 
 using hardware_interface::return_type;
+
+using namespace std;
 
 namespace Scara
 {
@@ -33,20 +41,17 @@ public:
 
     return_type write(const rclcpp::Time & /*time*/, const rclcpp::Duration & /*period*/) override;
 
-protected:
-    /// The size of this vector is (standard_interfaces_.size() x nr_joints)
-    std::vector<double> joint_position_command_;
-    std::vector<double> joint_velocities_command_;
-    std::vector<double> joint_position_;
-    std::vector<double> joint_velocities_;
-    std::vector<double> ft_states_;
-    std::vector<double> ft_command_;
-
-    std::unordered_map<std::string, std::vector<std::string>> joint_interfaces = {
-        {"position", {}}, {"velocity", {}}};
-
 private:
     rclcpp::Node::SharedPtr node_;
+    rclcpp::Subscription<motor_interface::msg::MotorState>::SharedPtr motor_state_sub_;
+    rclcpp::Publisher<motor_interface::msg::MotorGoal>::SharedPtr motor_goal_pub_;
+
+    MJMap mj_map;
+
+    unordered_map<string, tuple<double, double>> joint_states;
+    unordered_map<string, tuple<double, double>> joint_commands;
+
+    void motor_state_callback(const motor_interface::msg::MotorState::SharedPtr msg);
 };
 
 }
