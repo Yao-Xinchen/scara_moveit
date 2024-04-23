@@ -13,17 +13,9 @@ def generate_launch_description():
         )
     )
 
-    motor_launch = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource(
-            os.path.join(get_package_share_directory('scara_motor'),
-                        'launch/scara_motor.py')
-        )
-    )
-
     ld = LaunchDescription([
     ])
 
     ld.add_action(moveit_demo_launch)
-    ld.add_action(motor_launch)
 
     return ld

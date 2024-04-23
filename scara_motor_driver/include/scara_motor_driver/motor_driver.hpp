@@ -43,6 +43,7 @@ public:
 
 private:
     rclcpp::Node::SharedPtr node_;
+    rclcpp::executors::SingleThreadedExecutor executor_;
     rclcpp::Subscription<motor_interface::msg::MotorState>::SharedPtr motor_state_sub_;
     rclcpp::Publisher<motor_interface::msg::MotorGoal>::SharedPtr motor_goal_pub_;
 

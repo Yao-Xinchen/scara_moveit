@@ -2,9 +2,10 @@
 #include <cstddef>
 #include <string>
 #include <sys/types.h>
+#include <thread>
 #include <vector>
 
-#define YAML flase
+#define YAML false
 
 namespace scara
 {
@@ -17,8 +18,10 @@ CallbackReturn MotorDriver::on_init(const hardware_interface::HardwareInfo & inf
         return CallbackReturn::ERROR;
     }
 
-    // Get the joint names
     node_ = rclcpp::Node::make_shared("scara_motor_driver_node");
+    executor_.add_node(node_);
+
+    // Get the joint names
     vector<string> joint_names;
     vector<string> motor_names;
     vector<double> offsets;
@@ -28,7 +31,7 @@ CallbackReturn MotorDriver::on_init(const hardware_interface::HardwareInfo & inf
     joint_names = {"joint1", "joint2", "joint3", "joint4", "joint5", "joint6", "joint7"};
     motor_names = {"J1", "J2", "J3", "J4", "J5", "J6", "J7"};
     offsets = {0.0, -1.28, -2.71, 0.0, 0.0, 0.0, 0.0};
-    ratios = {973.4, 1.0, 1.0, 20.0, 20.0, 20.0, 108.0};
+    ratios = {-1070.0, 1.0, 1.0, 20.0, 20.0, 20.0, 108.0};
 #else
     // uint count = node_->declare_parameter("joint_count", 0);
     // joint_names = node_->declare_parameter("joint_names", joint_names);
@@ -61,10 +64,11 @@ CallbackReturn MotorDriver::on_init(const hardware_interface::HardwareInfo & inf
         }
     }
 
-    // Create a node and its publisher and subscriber
+    // Create publisher and subscriber
     motor_state_sub_ = node_->create_subscription<motor_interface::msg::MotorState>(
         "motor_state", 10, std::bind(&MotorDriver::motor_state_callback, this, std::placeholders::_1));
     motor_goal_pub_ = node_->create_publisher<motor_interface::msg::MotorGoal>("motor_goal", 10);
+    std::thread([this]() { executor_.spin(); }).detach();
 
     // Done
     RCLCPP_INFO(node_->get_logger(), "ScaraMotorDriver initialized.");
