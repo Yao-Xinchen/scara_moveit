@@ -30,8 +30,8 @@ CallbackReturn MotorDriver::on_init(const hardware_interface::HardwareInfo & inf
     uint count = 7;
     joint_names = {"joint1", "joint2", "joint3", "joint4", "joint5", "joint6", "joint7"};
     motor_names = {"J1", "J2", "J3", "J4", "J5", "J6", "J7"};
-    offsets = {0.0, -1.28, -2.71, 0.0, 0.0, 0.0, 0.0};
-    ratios = {-1070.0, 1.0, 1.0, 20.0, 20.0, 20.0, 108.0};
+    offsets = {0.0, -0.29, -0.59, 0.0, 0.0, 0.0, 0.0};
+    ratios = {-1070.0, 1.0, 1.0, -20.0, 20.0, 20.0, 108.0};
 #else
     // uint count = node_->declare_parameter("joint_count", 0);
     // joint_names = node_->declare_parameter("joint_names", joint_names);
