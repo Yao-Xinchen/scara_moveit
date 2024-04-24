@@ -20,9 +20,6 @@ class ScaraServo : public rclcpp::Node
 public:
     ScaraServo() : Node("scara_servo")
     {
-        this->servo_ = init_servo();
-        this->servo_->start();
-
         // joint_pub_ = this->create_publisher<JointJog>("joint_jog", 10);
         twist_pub_ = this->create_publisher<TwistStamped>("cartesian_velocity", 10);
 
@@ -32,6 +29,12 @@ public:
         });
 
         RCLCPP_INFO(this->get_logger(), "ScaraServo initialized.");
+    }
+
+    void init()
+    {
+        this->servo_ = init_servo();
+        this->servo_->start();
     }
 
 private:
@@ -45,7 +48,7 @@ private:
     {
         auto tf_buffer = std::make_shared<tf2_ros::Buffer>(this->get_clock());
         auto planning_scene_monitor_ = std::make_shared<planning_scene_monitor::PlanningSceneMonitor>(
-            this->shared_from_this(), "robot_description", tf_buffer, "planning_scene_monitor");
+            this->shared_from_this(), "robot_description", tf_buffer, "planning_scene_monitor"); // TODO: check second argument
         if (planning_scene_monitor_->getPlanningScene())
         {
             planning_scene_monitor_->startStateMonitor("/joint_states");
@@ -86,8 +89,9 @@ private:
 int main(int argc, char *argv[])
 {
     rclcpp::init(argc, argv);
-    rclcpp::sleep_for(std::chrono::seconds(2)); // wait for rviz to start
+    rclcpp::sleep_for(std::chrono::seconds(1)); // wait for rviz to start
     auto node_ = std::make_shared<ScaraServo>();
+    node_->init();
     rclcpp::spin(node_);
     rclcpp::shutdown();
     return 0;
