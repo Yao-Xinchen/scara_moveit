@@ -48,7 +48,7 @@ private:
     {
         auto tf_buffer = std::make_shared<tf2_ros::Buffer>(this->get_clock());
         auto planning_scene_monitor_ = std::make_shared<planning_scene_monitor::PlanningSceneMonitor>(
-            this->shared_from_this(), "robot_description", tf_buffer, "planning_scene_monitor"); // TODO: check second argument
+            this->shared_from_this(), "robot_description", tf_buffer, "planning_scene_monitor");
         if (planning_scene_monitor_->getPlanningScene())
         {
             planning_scene_monitor_->startStateMonitor("/joint_states");

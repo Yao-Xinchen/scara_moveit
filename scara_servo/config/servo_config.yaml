@@ -28,7 +28,7 @@ publish_joint_accelerations: false
 
 ## Plugins for smoothing outgoing commands
 use_smoothing: true
-smoothing_filter_plugin_name: "online_signal_smoothing::AccelerationLimitedPlugin"
+smoothing_filter_plugin: "online_signal_smoothing::ButterworthFilterPlugin"
 
 # If is_primary_planning_scene_monitor is set to true, the Servo server's PlanningScene advertises the /get_planning_scene service,
 # which other nodes can use as a source for information about the planning environment.
@@ -38,7 +38,7 @@ is_primary_planning_scene_monitor: true
 check_octomap_collisions: false  # Check collision against the octomap (if a 3D sensor plugin is available)
 
 ## MoveIt properties
-move_group_name:  scara_arm  # Often 'manipulator' or 'arm'
+move_group_name: scara_arm  # Often 'manipulator' or 'arm'
 
 ## Configure handling of singularities and joint limits
 lower_singularity_threshold:  17.0  # Start decelerating when the condition number hits this (close to singularity)
