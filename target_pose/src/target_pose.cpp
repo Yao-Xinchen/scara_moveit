@@ -1,7 +1,10 @@
+#include <cmath>
 #include <memory>
 
 #include <rclcpp/rclcpp.hpp>
 #include <moveit/move_group_interface/move_group_interface.h>
+
+#include <tf2/LinearMath/Quaternion.h>
 
 int main(int argc, char * argv[])
 {
@@ -24,10 +27,21 @@ int main(int argc, char * argv[])
         // Set a target Pose
         auto const target_pose = []{
             geometry_msgs::msg::Pose msg;
-            msg.orientation.w = 1.0;
-            msg.position.x = 0.18;
-            msg.position.y = -0.0;
-            msg.position.z = 0.5;
+            msg.orientation.x = 0.438;
+            msg.orientation.y = -0.434;
+            msg.orientation.z = -0.54;
+            msg.orientation.w = 0.568;
+            double magnitude = std::sqrt(msg.orientation.x * msg.orientation.x +
+                                 msg.orientation.y * msg.orientation.y +
+                                 msg.orientation.z * msg.orientation.z +
+                                 msg.orientation.w * msg.orientation.w);
+            msg.orientation.x /= magnitude;
+            msg.orientation.y /= magnitude;
+            msg.orientation.z /= magnitude;
+            msg.orientation.w /= magnitude;
+            msg.position.x = 0.372;
+            msg.position.y = 0.348;
+            msg.position.z = 0.326;
             return msg;
         }();
         move_group_interface.setPoseTarget(target_pose);
