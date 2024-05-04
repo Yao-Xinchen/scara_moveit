@@ -4,6 +4,7 @@
 #include <rclcpp/rclcpp.hpp>
 #include <moveit/move_group_interface/move_group_interface.h>
 
+#include <tf2/LinearMath/Matrix3x3.h>
 #include <tf2/LinearMath/Quaternion.h>
 
 int main(int argc, char * argv[])
@@ -27,10 +28,10 @@ int main(int argc, char * argv[])
         // Set a target Pose
         auto const target_pose = []{
             geometry_msgs::msg::Pose msg;
-            msg.orientation.x = 0.438;
-            msg.orientation.y = -0.434;
-            msg.orientation.z = -0.54;
-            msg.orientation.w = 0.568;
+            msg.orientation.x = 0.009;
+            msg.orientation.y = 0.718;
+            msg.orientation.z = 0.696;
+            msg.orientation.w = -0.025;
             double magnitude = std::sqrt(msg.orientation.x * msg.orientation.x +
                                  msg.orientation.y * msg.orientation.y +
                                  msg.orientation.z * msg.orientation.z +
@@ -39,6 +40,17 @@ int main(int argc, char * argv[])
             msg.orientation.y /= magnitude;
             msg.orientation.z /= magnitude;
             msg.orientation.w /= magnitude;
+            tf2::Quaternion q(
+                msg.orientation.x,
+                msg.orientation.y,
+                msg.orientation.z,
+                msg.orientation.w
+            );
+            tf2::Matrix3x3 m(q);
+            double roll, pitch, yaw;
+            m.getRPY(roll, pitch, yaw);
+            RCLCPP_INFO(rclcpp::get_logger("log"), "Roll: %f, Pitch: %f, Yaw: %f", roll, pitch, yaw);
+            
             msg.position.x = 0.372;
             msg.position.y = 0.348;
             msg.position.z = 0.326;

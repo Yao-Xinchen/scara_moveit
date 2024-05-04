@@ -88,21 +88,16 @@ int main(int argc, char* argv[])
     // move_group_interface.attachObject(object_to_attach.id, "link7", touch_links);
 
     geometry_msgs::msg::Pose relative_pose;
-    relative_pose.position.x = 0.0;
-    relative_pose.position.y = -0.15;
-    relative_pose.position.z = 0.0;
-    relative_pose.orientation.x = 0.438;
-    relative_pose.orientation.y = -0.434;
-    relative_pose.orientation.z = -0.54;
-    relative_pose.orientation.w = 0.568;
-    double magnitude = std::sqrt(relative_pose.orientation.x * relative_pose.orientation.x +
-                            relative_pose.orientation.y * relative_pose.orientation.y +
-                            relative_pose.orientation.z * relative_pose.orientation.z +
-                            relative_pose.orientation.w * relative_pose.orientation.w);
-    relative_pose.orientation.x /= magnitude;
-    relative_pose.orientation.y /= magnitude;
-    relative_pose.orientation.z /= magnitude;
-    relative_pose.orientation.w /= magnitude;
+    relative_pose.position.x = -0.05;
+    relative_pose.position.y = 0.0;
+    relative_pose.position.z = 0.15;
+    tf2::Quaternion q;
+    q.setRPY(M_PI_2, - M_PI_2, M_PI);
+    relative_pose.orientation = tf2::toMsg(q);
+    RCLCPP_INFO(logger, "Relative pose: x=%f, y=%f, z=%f", relative_pose.position.x,
+                relative_pose.position.y, relative_pose.position.z);
+    RCLCPP_INFO(logger, "Relative pose: qx=%f, qy=%f, qz=%f, qw=%f", relative_pose.orientation.x,
+                relative_pose.orientation.y, relative_pose.orientation.z, relative_pose.orientation.w);
 
     // Transform the relative pose to the frame of the object
     geometry_msgs::msg::PoseStamped relative_pose_stamped;
@@ -141,18 +136,17 @@ int main(int argc, char* argv[])
     if (success)
     {
         move_group_interface.execute(plan);
+        // Attach the collision object to the end effector
+        std::vector<std::string> touch_links;
+        touch_links.push_back("link7");
+        move_group_interface.attachObject(collision_object.id, "link7", touch_links);
+        RCLCPP_INFO(logger, "Object attached to the end effector!");
     }
     else
     {
         RCLCPP_ERROR(logger, "Planing failed!");
     }
     RCLCPP_INFO(logger, "Planing succeeded!");
-
-    // // Attach the collision object to the end effector
-    std::vector<std::string> touch_links;
-    touch_links.push_back("link7");
-    move_group_interface.attachObject(collision_object.id, "link7", touch_links);
-    RCLCPP_INFO(logger, "Object attached to the end effector!");
 
     // Shutdown ROS
     rclcpp::shutdown();
