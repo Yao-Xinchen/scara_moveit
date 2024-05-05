@@ -39,6 +39,9 @@ check_octomap_collisions: false  # Check collision against the octomap (if a 3D 
 
 ## MoveIt properties
 move_group_name: scara_arm  # Often 'manipulator' or 'arm'
+planning_frame: base_link
+ee_frame_name: link8
+robot_link_command_frame: base_link
 
 ## Configure handling of singularities and joint limits
 lower_singularity_threshold:  17.0  # Start decelerating when the condition number hits this (close to singularity)

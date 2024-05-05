@@ -35,6 +35,7 @@ public:
     {
         this->servo_ = init_servo();
         this->servo_->start();
+        RCLCPP_INFO(this->get_logger(), "Servo started.");
     }
 
 private:
