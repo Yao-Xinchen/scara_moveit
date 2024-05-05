@@ -42,8 +42,8 @@ def generate_launch_description():
     # As opposed to a node component, this may be necessary (for example) if Servo is running on a different PC
     scara_servo = launch_ros.actions.Node(
         package="scara_servo",
-        executable="scara_servo",
-        name="scara_servo",
+        executable="example_node",
+        name="example_node",
         parameters=[
             servo_params,
             acceleration_filter_update_period,

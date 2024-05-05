@@ -5,7 +5,7 @@
 
 #include <memory>
 #include <rclcpp/rclcpp.hpp>
-#include <thread>
+#include <thread>   
 #include <vector>
 
 int main(int argc, char* argv[])
@@ -27,6 +27,7 @@ int main(int argc, char* argv[])
     // Create the MoveIt MoveGroup Interface
     using moveit::planning_interface::MoveGroupInterface;
     auto move_group_interface = MoveGroupInterface(node, "scara_arm");
+    move_group_interface.setMaxVelocityScalingFactor(1.0);
 
     // Create collision object for the robot to avoid
     auto collision_object = [frame_id = move_group_interface.getPlanningFrame()] {
@@ -46,7 +47,7 @@ int main(int argc, char* argv[])
         geometry_msgs::msg::Pose box_pose;
         box_pose.orientation.w = 1.0;
         box_pose.position.x = 0.4;
-        box_pose.position.y = 0.5;
+        box_pose.position.y = 0.25;
         box_pose.position.z = 0.3;
 
         collision_object.primitives.push_back(primitive);

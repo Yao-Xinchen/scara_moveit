@@ -49,6 +49,31 @@ ament_target_dependencies(scara_servo
 install(TARGETS scara_servo
   DESTINATION lib/${PROJECT_NAME})
 
+# Add executable for using a controller
+add_library(scara_servo SHARED src/joystick_servo_example.cpp)
+rclcpp_components_register_nodes(scara_servo
+  PLUGIN "JoyToServoPub"
+  EXECUTABLE example_node)
+ament_target_dependencies(scara_servo ${THIS_PACKAGE_INCLUDE_DEPENDS})
+
+install(TARGETS scara_servo
+  DESTINATION lib/${PROJECT_NAME})
+
+install(DIRECTORY
+  launch
+  config
+  DESTINATION share/${PROJECT_NAME}/
+)
+
+install(
+  TARGETS scara_servo
+  EXPORT export_${PROJECT_NAME}
+  LIBRARY DESTINATION lib
+  ARCHIVE DESTINATION lib
+  RUNTIME DESTINATION bin
+  INCLUDES DESTINATION include
+)
+
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
   # the following line skips the linter which checks for copyrights
