@@ -19,7 +19,7 @@
   <depend>rcpputils</depend>
   <depend>realtime_tools</depend>
   <depend>trajectory_msgs</depend>
-  <depend>motor_interface</depend>
+  <depend>device_interface</depend>
 
   <exec_depend>controller_manager</exec_depend>
   <exec_depend>joint_state_broadcaster</exec_depend>

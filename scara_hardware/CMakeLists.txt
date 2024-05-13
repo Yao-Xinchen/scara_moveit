@@ -9,7 +9,7 @@ endif()
 set(HW_IF_INCLUDE_DEPENDS
   pluginlib
   rcpputils
-  hardware_interface
+  device_interface
 )
 set(REF_GEN_INCLUDE_DEPENDS
   kdl_parser
@@ -36,7 +36,7 @@ foreach(Dependency IN ITEMS ${CONTROLLER_INCLUDE_DEPENDS})
   find_package(${Dependency} REQUIRED)
 endforeach()
 
-find_package(motor_interface REQUIRED)
+find_package(device_interface REQUIRED)
 
 # COMPILE
 add_library(
@@ -56,13 +56,13 @@ ament_target_dependencies(
   scara_hardware PUBLIC
   ${HW_IF_INCLUDE_DEPENDS}
   ${CONTROLLER_INCLUDE_DEPENDS}
-  motor_interface
+  device_interface
 )
 
 target_compile_definitions(scara_hardware PRIVATE "SCARA_HARDWARE_BUILDING_DLL")
 
 # Export hardware plugins
-pluginlib_export_plugin_description_file(hardware_interface scara_hardware.xml)
+pluginlib_export_plugin_description_file(device_interface scara_hardware.xml)
 
 # INSTALL
 install(

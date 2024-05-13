@@ -65,9 +65,9 @@ CallbackReturn ScaraHardware::on_init(const hardware_interface::HardwareInfo & i
     }
 
     // Create publisher and subscriber
-    motor_state_sub_ = node_->create_subscription<motor_interface::msg::MotorState>(
+    motor_state_sub_ = node_->create_subscription<device_interface::msg::MotorState>(
         "motor_state", 10, std::bind(&ScaraHardware::motor_state_callback, this, std::placeholders::_1));
-    motor_goal_pub_ = node_->create_publisher<motor_interface::msg::MotorGoal>("motor_goal", 10);
+    motor_goal_pub_ = node_->create_publisher<device_interface::msg::MotorGoal>("motor_goal", 10);
     std::thread([this]() { executor_.spin(); }).detach();
 
     // Done
@@ -109,7 +109,7 @@ return_type ScaraHardware::read(const rclcpp::Time & /*time*/, const rclcpp::Dur
 return_type ScaraHardware::write(const rclcpp::Time & /*time*/, const rclcpp::Duration & /*period*/)
 {
     // publish the joint commands
-    motor_interface::msg::MotorGoal msg;
+    device_interface::msg::MotorGoal msg;
     for (const auto& [joint, command]: joint_commands)
     {
         auto [pos, vel] = command;
@@ -128,7 +128,7 @@ return_type ScaraHardware::write(const rclcpp::Time & /*time*/, const rclcpp::Du
     return return_type::OK;
 }
 
-void ScaraHardware::motor_state_callback(const motor_interface::msg::MotorState::SharedPtr msg)
+void ScaraHardware::motor_state_callback(const device_interface::msg::MotorState::SharedPtr msg)
 {
     // Update the joint states
     for (size_t i = 0; i < msg->motor_id.size(); i++)

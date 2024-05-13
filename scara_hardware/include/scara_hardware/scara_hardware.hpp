@@ -16,8 +16,8 @@
 #include "hardware_interface/types/hardware_interface_type_values.hpp"
 
 #include "rclcpp/rclcpp.hpp"
-#include "motor_interface/msg/motor_goal.hpp"
-#include "motor_interface/msg/motor_state.hpp"
+#include "device_interface/msg/motor_goal.hpp"
+#include "device_interface/msg/motor_state.hpp"
 
 using hardware_interface::return_type;
 
@@ -44,15 +44,15 @@ public:
 private:
     rclcpp::Node::SharedPtr node_;
     rclcpp::executors::SingleThreadedExecutor executor_;
-    rclcpp::Subscription<motor_interface::msg::MotorState>::SharedPtr motor_state_sub_;
-    rclcpp::Publisher<motor_interface::msg::MotorGoal>::SharedPtr motor_goal_pub_;
+    rclcpp::Subscription<device_interface::msg::MotorState>::SharedPtr motor_state_sub_;
+    rclcpp::Publisher<device_interface::msg::MotorGoal>::SharedPtr motor_goal_pub_;
 
     MJMap mj_map;
 
     unordered_map<string, tuple<double, double>> joint_states;
     unordered_map<string, tuple<double, double>> joint_commands;
 
-    void motor_state_callback(const motor_interface::msg::MotorState::SharedPtr msg);
+    void motor_state_callback(const device_interface::msg::MotorState::SharedPtr msg);
 };
 
 }
