@@ -1,4 +1,4 @@
-#include "scara_motor_driver/mj_map.hpp"
+#include "scara_hardware/mj_map.hpp"
 
 void MJMap::add_joint(string motor, string joint, double offset, double ratio)
 {

@@ -1,4 +1,4 @@
-#include "scara_motor_driver/motor_joint.hpp"
+#include "scara_hardware/motor_joint.hpp"
 
 MotorJoint::MotorJoint(std::string motor, std::string joint, double offset, double ratio)
     : offset(offset), ratio(ratio)

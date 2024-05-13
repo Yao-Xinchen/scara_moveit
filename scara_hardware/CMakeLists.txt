@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.8)
-project(scara_motor_driver)
+project(scara_hardware)
 
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
@@ -40,39 +40,39 @@ find_package(motor_interface REQUIRED)
 
 # COMPILE
 add_library(
-  scara_motor_driver
+  scara_hardware
   SHARED
-  src/motor_driver.cpp
+  src/scara_hardware.cpp
   src/motor_joint.cpp
   src/mj_map.cpp
 )
 
-target_compile_features(scara_motor_driver PUBLIC cxx_std_20)
-target_include_directories(scara_motor_driver PUBLIC
+target_compile_features(scara_hardware PUBLIC cxx_std_20)
+target_include_directories(scara_hardware PUBLIC
   $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
-  $<INSTALL_INTERFACE:include/scara_motor_driver>
+  $<INSTALL_INTERFACE:include/scara_hardware>
 )
 ament_target_dependencies(
-  scara_motor_driver PUBLIC
+  scara_hardware PUBLIC
   ${HW_IF_INCLUDE_DEPENDS}
   ${CONTROLLER_INCLUDE_DEPENDS}
   motor_interface
 )
 
-target_compile_definitions(scara_motor_driver PRIVATE "SCARA_MOTOR_DRIVER_BUILDING_DLL")
+target_compile_definitions(scara_hardware PRIVATE "SCARA_HARDWARE_BUILDING_DLL")
 
 # Export hardware plugins
-pluginlib_export_plugin_description_file(hardware_interface scara_motor_driver.xml)
+pluginlib_export_plugin_description_file(hardware_interface scara_hardware.xml)
 
 # INSTALL
 install(
   DIRECTORY include/
-  DESTINATION include/scara_motor_driver
+  DESTINATION include/scara_hardware
 )
 
 install(
-  TARGETS scara_motor_driver
-  EXPORT export_scara_motor_driver
+  TARGETS scara_hardware
+  EXPORT export_scara_hardware
   ARCHIVE DESTINATION lib
   LIBRARY DESTINATION lib
   RUNTIME DESTINATION bin
@@ -91,7 +91,7 @@ if(BUILD_TESTING)
 endif()
 
 # Export
-ament_export_targets(export_scara_motor_driver HAS_LIBRARY_TARGET)
+ament_export_targets(export_scara_hardware HAS_LIBRARY_TARGET)
 ament_export_dependencies(${HW_IF_INCLUDE_DEPENDS} ${REF_GEN_INCLUDE_DEPENDS} ${CONTROLLER_INCLUDE_DEPENDS})
 
 ament_package()

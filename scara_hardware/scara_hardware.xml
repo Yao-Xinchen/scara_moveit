@@ -1,0 +1,7 @@
+<library path="scara_hardware">
+    <class
+        name="scara/ScaraHardware"
+        type="scara::ScaraHardware"
+        base_class_type="hardware_interface::SystemInterface">
+    </class>
+</library>

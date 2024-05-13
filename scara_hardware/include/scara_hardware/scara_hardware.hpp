@@ -1,7 +1,7 @@
-#ifndef SCARA_MOTOR_DRIVER__MOTOR_DRIVER_HPP_
-#define SCARA_MOTOR_DRIVER__MOTOR_DRIVER_HPP_
+#ifndef SCARA_HARDWARE_HPP
+#define SCARA_HARDWARE_HPP
 
-#include "scara_motor_driver/mj_map.hpp"
+#include "scara_hardware/mj_map.hpp"
 #include "string"
 #include "unordered_map"
 #include "vector"
@@ -28,7 +28,7 @@ namespace scara
 
 using CallbackReturn = rclcpp_lifecycle::node_interfaces::LifecycleNodeInterface::CallbackReturn;
 
-class HARDWARE_INTERFACE_PUBLIC MotorDriver : public hardware_interface::SystemInterface
+class HARDWARE_INTERFACE_PUBLIC ScaraHardware : public hardware_interface::SystemInterface
 {
 public:
     CallbackReturn on_init(const hardware_interface::HardwareInfo & info) override;
@@ -57,4 +57,4 @@ private:
 
 }
 
-#endif  // SCARA_MOTOR_DRIVER__MOTOR_DRIVER_HPP_
+#endif  // SCARA_HARDWARE_HPP

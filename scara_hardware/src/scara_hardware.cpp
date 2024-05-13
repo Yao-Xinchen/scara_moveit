@@ -1,4 +1,4 @@
-#include "scara_motor_driver/motor_driver.hpp"
+#include "scara_hardware/scara_hardware.hpp"
 #include <cstddef>
 #include <string>
 #include <sys/types.h>
@@ -10,7 +10,7 @@
 namespace scara
 {
 
-CallbackReturn MotorDriver::on_init(const hardware_interface::HardwareInfo & info)
+CallbackReturn ScaraHardware::on_init(const hardware_interface::HardwareInfo & info)
 {
     // Call the base class implementation
     if (hardware_interface::SystemInterface::on_init(info) != CallbackReturn::SUCCESS)
@@ -18,7 +18,7 @@ CallbackReturn MotorDriver::on_init(const hardware_interface::HardwareInfo & inf
         return CallbackReturn::ERROR;
     }
 
-    node_ = rclcpp::Node::make_shared("scara_motor_driver_node");
+    node_ = rclcpp::Node::make_shared("scara_hardware_node");
     executor_.add_node(node_);
 
     // Get the joint names
@@ -66,16 +66,16 @@ CallbackReturn MotorDriver::on_init(const hardware_interface::HardwareInfo & inf
 
     // Create publisher and subscriber
     motor_state_sub_ = node_->create_subscription<motor_interface::msg::MotorState>(
-        "motor_state", 10, std::bind(&MotorDriver::motor_state_callback, this, std::placeholders::_1));
+        "motor_state", 10, std::bind(&ScaraHardware::motor_state_callback, this, std::placeholders::_1));
     motor_goal_pub_ = node_->create_publisher<motor_interface::msg::MotorGoal>("motor_goal", 10);
     std::thread([this]() { executor_.spin(); }).detach();
 
     // Done
-    RCLCPP_INFO(node_->get_logger(), "ScaraMotorDriver initialized.");
+    RCLCPP_INFO(node_->get_logger(), "ScaraHardware initialized.");
     return CallbackReturn::SUCCESS;
 }
 
-std::vector<hardware_interface::StateInterface> MotorDriver::export_state_interfaces()
+std::vector<hardware_interface::StateInterface> ScaraHardware::export_state_interfaces()
 {
     std::vector<hardware_interface::StateInterface> state_interfaces;
     for (auto& [joint, state]: joint_states)
@@ -87,7 +87,7 @@ std::vector<hardware_interface::StateInterface> MotorDriver::export_state_interf
     return state_interfaces;
 }
 
-std::vector<hardware_interface::CommandInterface> MotorDriver::export_command_interfaces()
+std::vector<hardware_interface::CommandInterface> ScaraHardware::export_command_interfaces()
 {
     std::vector<hardware_interface::CommandInterface> command_interfaces;
     for (auto& [joint, command]: joint_commands)
@@ -99,14 +99,14 @@ std::vector<hardware_interface::CommandInterface> MotorDriver::export_command_in
     return command_interfaces;
 }
 
-return_type MotorDriver::read(const rclcpp::Time & /*time*/, const rclcpp::Duration & /*period*/)
+return_type ScaraHardware::read(const rclcpp::Time & /*time*/, const rclcpp::Duration & /*period*/)
 {
     // update the joint states
     // already done in the callback
     return return_type::OK;
 }
 
-return_type MotorDriver::write(const rclcpp::Time & /*time*/, const rclcpp::Duration & /*period*/)
+return_type ScaraHardware::write(const rclcpp::Time & /*time*/, const rclcpp::Duration & /*period*/)
 {
     // publish the joint commands
     motor_interface::msg::MotorGoal msg;
@@ -128,7 +128,7 @@ return_type MotorDriver::write(const rclcpp::Time & /*time*/, const rclcpp::Dura
     return return_type::OK;
 }
 
-void MotorDriver::motor_state_callback(const motor_interface::msg::MotorState::SharedPtr msg)
+void ScaraHardware::motor_state_callback(const motor_interface::msg::MotorState::SharedPtr msg)
 {
     // Update the joint states
     for (size_t i = 0; i < msg->motor_id.size(); i++)
@@ -145,4 +145,4 @@ void MotorDriver::motor_state_callback(const motor_interface::msg::MotorState::S
 
 #include "pluginlib/class_list_macros.hpp"
 
-PLUGINLIB_EXPORT_CLASS(scara::MotorDriver, hardware_interface::SystemInterface)
+PLUGINLIB_EXPORT_CLASS(scara::ScaraHardware, hardware_interface::SystemInterface)
