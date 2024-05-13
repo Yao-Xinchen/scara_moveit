@@ -28,7 +28,7 @@ publish_joint_accelerations: false
 
 ## Plugins for smoothing outgoing commands
 use_smoothing: true
-smoothing_filter_plugin: "online_signal_smoothing::ButterworthFilterPlugin"
+# smoothing_filter_plugin: "online_signal_smoothing::ButterworthFilterPlugin"
 
 # If is_primary_planning_scene_monitor is set to true, the Servo server's PlanningScene advertises the /get_planning_scene service,
 # which other nodes can use as a source for information about the planning environment.
@@ -50,14 +50,14 @@ joint_limit_margins: [0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1]  # added as a buffer to
 leaving_singularity_threshold_multiplier: 2.0  # Multiply the hard stop limit by this when leaving singularity (see https://github.com/ros-planning/moveit2/pull/620)
 
 ## Topic names
-cartesian_command_in_topic: ~/delta_twist_cmds  # Topic for incoming Cartesian twist commands
-joint_command_in_topic: ~/delta_joint_cmds  # Topic for incoming joint angle commands
+cartesian_command_in_topic: /delta_twist_cmds  # Topic for incoming Cartesian twist commands
+joint_command_in_topic: /delta_joint_cmds  # Topic for incoming joint angle commands
 joint_topic: /joint_states  # Get joint states from this tpoic
-status_topic: ~/status  # Publish status to this topic
+status_topic: /status  # Publish status to this topic
 command_out_topic: /scara_arm_controller/joint_trajectory  # Publish outgoing commands here
 
 ## Collision checking for the entire robot body
-check_collisions: true  # Check collisions?
+check_collisions: false  # Check collisions?
 collision_check_rate: 10.0  # [Hz] Collision-checking can easily bog down a CPU if done too often.
 self_collision_proximity_threshold: 0.01  # Start decelerating when a self-collision is this far [m]
 scene_collision_proximity_threshold: 0.02  # Start decelerating when a scene collision is this far [m]
