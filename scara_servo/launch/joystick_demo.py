@@ -117,25 +117,24 @@ def generate_launch_description():
                 name="static_tf2_broadcaster",
                 parameters=[{"child_frame_id": "/base_link", "frame_id": "/world"}],
             ),
-            # ComposableNode(
-            #     package="scara_servo",
-            #     plugin="ScaraServo",
-            #     name="scara_servo",
-            # ),
-            # ComposableNode(
-            #     package="joy",
-            #     plugin="joy::Joy",
-            #     name="joy_node",
-            # ),
+            ComposableNode(
+                package="scara_servo",
+                plugin="moveit_servo::JoyToServoPub",
+                name="joy_to_servo",
+            ),
+            ComposableNode(
+                package="joy",
+                plugin="joy::Joy",
+                name="joy_node",
+            ),
         ],
         output="screen",
     )
     # Launch a standalone Servo node.
     # As opposed to a node component, this may be necessary (for example) if Servo is running on a different PC
     servo_node = Node(
-        package="scara_servo",
-        executable="scara_servo",
-        name="scara_servo",
+        package="moveit_servo",
+        executable="servo_node_main",
         parameters=[
             servo_params,
             moveit_config.robot_description,
@@ -145,7 +144,6 @@ def generate_launch_description():
         ],
         output="screen",
     )
-    # MY_TODO: check this
 
     return LaunchDescription(
         [

@@ -22,8 +22,8 @@ class ScaraServo : public rclcpp::Node
 public:
     ScaraServo() : Node("scara_servo")
     {
-        joint_pub_ = this->create_publisher<JointJog>("scara_servo/delta_joint_cmds", 10);
-        twist_pub_ = this->create_publisher<TwistStamped>("scara_servo/delta_twist_cmds", 10);
+        joint_pub_ = this->create_publisher<JointJog>("scara/delta_joint_cmds", 10);
+        twist_pub_ = this->create_publisher<TwistStamped>("scara/delta_twist_cmds", 10);
 
         end_vel_sub_ = this->create_subscription<EndVel>("end_vel", 10,
             [this](EndVel::SharedPtr msg) {

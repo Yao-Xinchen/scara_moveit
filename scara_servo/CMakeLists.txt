@@ -46,6 +46,14 @@ ament_target_dependencies(scara_servo
   behavior_interface
 )
 
+add_library(joystick_servo SHARED src/joystick_demo.cpp)
+ament_target_dependencies(joystick_servo
+  ${THIS_PACKAGE_INCLUDE_DEPENDS}
+)
+rclcpp_components_register_node(joystick_servo
+  PLUGIN "moveit_servo::JoyToServoPub"
+  EXECUTABLE joystick_demo)
+
 install(TARGETS scara_servo
   DESTINATION lib/${PROJECT_NAME})
 
@@ -53,6 +61,13 @@ install(DIRECTORY
   launch
   config
   DESTINATION share/${PROJECT_NAME})
+
+install(TARGETS joystick_servo
+  EXPORT export_${PROJECT_NAME}
+  LIBRARY DESTINATION lib
+  ARCHIVE DESTINATION lib
+  RUNTIME DESTINATION bin
+  INCLUDES DESTINATION include)
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
