@@ -1,9 +1,11 @@
 #include "rclcpp/rclcpp.hpp"
+#include <control_msgs/msg/detail/joint_jog__struct.hpp>
 #include <memory>
 
 #include <moveit_servo/servo_parameters.h>
 #include <moveit_servo/servo.h>
 #include <moveit/planning_scene_monitor/planning_scene_monitor.h>
+#include <rclcpp/executors/multi_threaded_executor.hpp>
 #include <rclcpp/subscription.hpp>
 
 #include "behavior_interface/msg/end_vel.hpp"
@@ -20,8 +22,8 @@ class ScaraServo : public rclcpp::Node
 public:
     ScaraServo() : Node("scara_servo")
     {
-        // joint_pub_ = this->create_publisher<JointJog>("delta_joint_cmds", 10);
-        twist_pub_ = this->create_publisher<TwistStamped>("delta_twist_cmds", 10);
+        joint_pub_ = this->create_publisher<JointJog>("scara_servo/delta_joint_cmds", 10);
+        twist_pub_ = this->create_publisher<TwistStamped>("scara_servo/delta_twist_cmds", 10);
 
         end_vel_sub_ = this->create_subscription<EndVel>("end_vel", 10,
             [this](EndVel::SharedPtr msg) {
@@ -39,7 +41,7 @@ public:
     }
 
 private:
-    // rclcpp::Publisher<JointJog>::SharedPtr joint_pub_;
+    rclcpp::Publisher<JointJog>::SharedPtr joint_pub_;
     rclcpp::Publisher<TwistStamped>::SharedPtr twist_pub_;
     std::shared_ptr<moveit_servo::Servo> servo_;
     
@@ -74,16 +76,23 @@ private:
 
     void end_vel_callback(const EndVel::SharedPtr msg)
     {
-        TwistStamped::UniquePtr twist_msg = std::make_unique<TwistStamped>();
+        auto twist_msg = std::make_unique<TwistStamped>();
         twist_msg->header.stamp = this->now();
-        twist_msg->header.frame_id = EEF_FRAME_ID;
+        twist_msg->header.frame_id = BASE_FRAME_ID;
         twist_msg->twist.linear.x = msg->x;
         twist_msg->twist.linear.y = msg->y;
-        twist_msg->twist.linear.z = msg->z;
-        twist_msg->twist.angular.x = msg->roll;
-        twist_msg->twist.angular.y = msg->pitch;
-        twist_msg->twist.angular.z = msg->yaw;
+        // twist_msg->twist.linear.z = msg->z;
+        // twist_msg->twist.angular.x = msg->roll;
+        // twist_msg->twist.angular.y = msg->pitch;
+        // twist_msg->twist.angular.z = msg->yaw;
         twist_pub_->publish(std::move(twist_msg));
+
+        auto joint_msg = std::make_unique<JointJog>();
+        joint_msg->header.stamp = this->now();
+        joint_msg->header.frame_id = BASE_FRAME_ID;
+        joint_msg->joint_names.push_back("joint2");
+        joint_msg->velocities.push_back(msg->z);
+        joint_pub_->publish(std::move(joint_msg));
     }
 };
 
@@ -93,7 +102,9 @@ int main(int argc, char *argv[])
     rclcpp::sleep_for(std::chrono::seconds(1)); // wait for rviz to start
     auto node_ = std::make_shared<ScaraServo>();
     node_->init();
-    rclcpp::spin(node_);
+    auto executor = std::make_unique<rclcpp::executors::MultiThreadedExecutor>();
+    executor->add_node(node_);
+    executor->spin();
     rclcpp::shutdown();
     return 0;
 }

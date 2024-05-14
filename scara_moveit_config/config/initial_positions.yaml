@@ -1,7 +1,7 @@
 # Default initial positions for scara_description's ros2_control fake system
 
 initial_positions:
-  joint1: 0.0
+  joint1: -0.1
   joint2: 0.244
   joint3: 1.885
   joint4: 0.0
