@@ -22,8 +22,6 @@ CallbackReturn ScaraHardware::on_init(const hardware_interface::HardwareInfo & i
     executor_.add_node(node_);
 
     // Get the joint names
-    vector<string> joint_names;
-    vector<string> motor_names;
     vector<double> offsets;
     vector<double> ratios;
 #if YAML == false
@@ -134,6 +132,7 @@ void ScaraHardware::motor_state_callback(const device_interface::msg::MotorState
     for (size_t i = 0; i < msg->motor_id.size(); i++)
     {
         auto& motor = msg->motor_id[i];
+        if (std::find(motor_names.begin(), motor_names.end(), motor) == motor_names.end()) continue;
         auto joint = mj_map.m2j_name(motor);
         auto joint_pos = mj_map.m2j_pos(motor, msg->present_pos[i]);
         auto joint_vel = mj_map.m2j_vel(motor, msg->present_vel[i]);

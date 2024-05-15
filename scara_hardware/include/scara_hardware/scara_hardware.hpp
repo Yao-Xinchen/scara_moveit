@@ -53,6 +53,9 @@ private:
     unordered_map<string, tuple<double, double>> joint_commands;
 
     void motor_state_callback(const device_interface::msg::MotorState::SharedPtr msg);
+
+    vector<string> joint_names = {"joint1", "joint2", "joint3", "joint4", "joint5", "joint6", "joint7"};
+    vector<string> motor_names = {"J1", "J2", "J3", "J4", "J5", "J6", "J7"};
 };
 
 }
