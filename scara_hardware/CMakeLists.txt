@@ -9,7 +9,7 @@ endif()
 set(HW_IF_INCLUDE_DEPENDS
   pluginlib
   rcpputils
-  device_interface
+  hardware_interface
 )
 set(REF_GEN_INCLUDE_DEPENDS
   kdl_parser
@@ -62,7 +62,7 @@ ament_target_dependencies(
 target_compile_definitions(scara_hardware PRIVATE "SCARA_HARDWARE_BUILDING_DLL")
 
 # Export hardware plugins
-pluginlib_export_plugin_description_file(device_interface scara_hardware.xml)
+pluginlib_export_plugin_description_file(hardware_interface scara_hardware.xml)
 
 # INSTALL
 install(
